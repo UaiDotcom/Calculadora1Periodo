@@ -15,8 +15,18 @@ namespace Calculadora
             Menu(opcao);
         }
 
+
+
+
+
+
+
+
+
+
         static void Cabcalhopadrao()
         {
+            //Cabeçalho
             Console.WriteLine("|------------------------------------------------------------------|");
             Console.WriteLine("|Calculadora Didática                                              |");
             Console.WriteLine("|------------------------------------------------------------------|");
@@ -65,6 +75,7 @@ namespace Calculadora
                     ParaConverter = tipos[0];
                     SeraConvertido = tipos[1];
                     titulo(ParaConverter, SeraConvertido);
+                    DecimaltoBinario();
                     break;
 
                 case 2:
@@ -155,9 +166,56 @@ namespace Calculadora
             Console.Clear();
             Cabcalhopadrao();
             Console.WriteLine($"|A Conversão de Bases Será de {x} para {y}                 |");
+            Console.WriteLine("|------------------------------------------------------------------|");
 
 
         }
+        static void DecimaltoBinario()
+        {
+            int ValorUsuario = 0;
+            Console.WriteLine("|Escreva um Número Para Ser Convertido:                            |");
+            Console.WriteLine("|------------------------------------------------------------------|");
+            Console.SetCursorPosition(39,5);
+             ValorUsuario = Convert.ToInt32(Console.ReadLine());
+            
+            string Resto = "";
+            while (ValorUsuario > 0)
+            {
+                int restodentro;
+                restodentro = ValorUsuario % 2;
+                Resto += restodentro;
+                string escrita = ($"|{ValorUsuario} / 2 = {(ValorUsuario / 2)} e o Resto da Divisão foi:{restodentro}");
+                int tamanhoescrita = (escrita.Length);
+
+
+                Console.Write(escrita);
+                calculaEspaço(tamanhoescrita);
+                Console.Write("|\n");
+                ValorUsuario = ValorUsuario / 2;
+            }
+
+            Console.WriteLine("|------------------------------------------------------------------|");
+            string ResultadoInvertido = new string(Resto.Reverse().ToArray());
+
+            string ResultadoEscrita = ($"|O Resultado em Binário é :{ResultadoInvertido}");
+
+            int tamanhoresultado = (ResultadoEscrita.Length);
+
+            Console.Write(ResultadoEscrita);
+            calculaEspaço(tamanhoresultado);
+            Console.Write("|\n");
+            Console.WriteLine("|------------------------------------------------------------------|");
+            Console.ReadKey();
+        }
+        static void calculaEspaço(int x ) {
+
+           for (int espaçolinha = 66; x<=66; x++)
+            {
+                Console.Write(" ");
+            }
+          
+        }
+
 
 
     }
