@@ -10,30 +10,26 @@ namespace Calculadora
     {
         static void Main(string[] args)
         {
-            int opcao = 0;
-            Cabcalhopadrao();
-            Menu(opcao);
+            
+            Cabecalhopadrao();
+            Menu();
+
         }
 
 
-
-
-
-
-
-
-
-
-        static void Cabcalhopadrao()
+        static void Cabecalhopadrao()
         {
-            //Cabeçalho
+            //Cabeçalho Que Aparece em Todas As Telas
+
             Console.WriteLine("|------------------------------------------------------------------|");
             Console.WriteLine("|Calculadora Didática                                              |");
             Console.WriteLine("|------------------------------------------------------------------|");
         }
-        static void Menu(int opcao)
+
+        static void Menu()
         {
-            string ParaConverter, SeraConvertido;
+            //Menu de Seleção de Qual Operação Será Feita
+           
 
             //Front
 
@@ -57,11 +53,16 @@ namespace Calculadora
             Console.WriteLine("|------------------------------------------------------------------|");
 
             Console.SetCursorPosition(17, 19);
-            opcao = Convert.ToInt32(Console.ReadLine());
+            int opcao = Convert.ToInt32(Console.ReadLine());
 
 
             //back
 
+            //      Variáveis para escrever o Título da Operação
+            //      Essas Variáveis e Array  usam o Procedimento "titulo", para definir o titulo 
+            //      de qual tipo de operação está sendo feita.
+
+            string ParaConverter, SeraConvertido;
             string[] tipos = { "Decimal", "Binário", "Octal", "Hexadecimal" };
 
 
@@ -154,58 +155,85 @@ namespace Calculadora
                     titulo(ParaConverter, SeraConvertido);
 
                     break;
-
-               
-
             }
 
 
         }
+
         static void titulo(string x, string y)
         {
+            //          Esse Procedimento mostra o título referente a qual operação está sera feita
             Console.Clear();
             Cabcalhopadrao();
             Console.WriteLine($"|A Conversão de Bases Será de {x} para {y}                 |");
             Console.WriteLine("|------------------------------------------------------------------|");
-
-
         }
+
         static void DecimaltoBinario()
         {
-            int ValorUsuario = 0;
+            //          Procedimento para Realizar Decimal Para Binário
+
+            
             Console.WriteLine("|Escreva um Número Para Ser Convertido:                            |");
             Console.WriteLine("|------------------------------------------------------------------|");
+
+            //          Coloca a Posição do Cursor dentro da caixa
             Console.SetCursorPosition(39,5);
-             ValorUsuario = Convert.ToInt32(Console.ReadLine());
+
+            //          Recebe o Numero que Será Convertido pelo usuário
+            int ValorUsuario = Convert.ToInt32(Console.ReadLine());
             
+            //          Essa Variável Recebe todos os Valores do Resto Obtido das Operações
             string Resto = "";
+
+            //          Faz as Operações:
             while (ValorUsuario > 0)
             {
-                int restodentro;
-                restodentro = ValorUsuario % 2;
+                int restodentro = ValorUsuario % 2;
                 Resto += restodentro;
+
+
+                //          A Solução que encontrei foi salvar a Resposta como uma Variável para que o Possa Contar
+                //          a quantidade  de Caracteres
                 string escrita = ($"|{ValorUsuario} / 2 = {(ValorUsuario / 2)} e o Resto da Divisão foi:{restodentro}");
+
+                //          Essa Variável Calcula o Tamanho da String para colocar os espaços e Fechar o Quadro
+                //          Junto com a Função calculaEspaço.
                 int tamanhoescrita = (escrita.Length);
 
-
+                //          escreve a Resposta,Calcula os Espaços e Fecha o Quadro
                 Console.Write(escrita);
                 calculaEspaço(tamanhoescrita);
                 Console.Write("|\n");
+                //          Divide o Valor do Usuário por 2 
                 ValorUsuario = ValorUsuario / 2;
             }
 
+            //          Resposta Final:
+
+
             Console.WriteLine("|------------------------------------------------------------------|");
+
+            // Inverte os Valores dos Restos
             string ResultadoInvertido = new string(Resto.Reverse().ToArray());
 
+            // Variável para Calculo de Espaços
             string ResultadoEscrita = ($"|O Resultado em Binário é :{ResultadoInvertido}");
-
             int tamanhoresultado = (ResultadoEscrita.Length);
 
+            //          escreve a Resposta,Calcula os Espaços e Fecha o Quadro
             Console.Write(ResultadoEscrita);
             calculaEspaço(tamanhoresultado);
             Console.Write("|\n");
             Console.WriteLine("|------------------------------------------------------------------|");
+
+            //Retorna ao Menu Principal
+            Console.WriteLine("Clique em Qualquer Tecla para Retornar ao Menu Principal...");
             Console.ReadKey();
+
+            Console.Clear();
+            Cabecalhopadrao();
+            Menu();
         }
         static void calculaEspaço(int x ) {
 
