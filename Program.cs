@@ -119,6 +119,7 @@ namespace Calculadora
                     ParaConverter = tipos[0];
                     SeraConvertido = tipos[3];
                     titulo(ParaConverter, SeraConvertido);
+                    DecimaltoHexa();
 
                     break;
 
@@ -133,6 +134,7 @@ namespace Calculadora
                     ParaConverter = tipos[1];
                     SeraConvertido = tipos[2];
                     titulo(ParaConverter, SeraConvertido);
+                    BinarioToOctal();
 
                     break;
 
@@ -252,7 +254,7 @@ namespace Calculadora
             Console.WriteLine("|------------------------------------------------------------------|");
 
             ReturnMainMenu();
-            
+
         }
         static void BinarioToDecimal()
         {
@@ -266,23 +268,23 @@ namespace Calculadora
             Console.SetCursorPosition(47, 5);
 
 
-            
-                // recebe o binário do Usuário
-                string entradaBinaria = Console.ReadLine();
 
-                // Validar se a entrada é um número binário
-                if (!EhBinario(entradaBinaria))
-                {
-                    Console.WriteLine("\nEntrada inválida. Por favor, digite apenas 0 ou 1.");
-                    ReturnMainMenu();
-                    return;
-                }
+            // recebe o binário do Usuário
+            string entradaBinaria = Console.ReadLine();
 
-                // Converter binário para decimal
-                int valorDecimal = ConverterBinarioParaDecimal(entradaBinaria);
+            // Validar se a entrada é um número binário
+            if (!EhBinario(entradaBinaria))
+            {
+                Console.WriteLine("\nEntrada inválida. Por favor, digite apenas 0 ou 1.");
+                ReturnMainMenu();
+                return;
+            }
 
-                // Mostrar os passos detalhados
-                MostrarPassosDaConversao(entradaBinaria);
+            // Converter binário para decimal
+            int valorDecimal = ConverterBinarioParaDecimal(entradaBinaria);
+
+            // Mostrar os passos detalhados
+            MostrarPassosDaConversao(entradaBinaria);
 
             // Mostrar o resultado final
             Console.WriteLine("|------------------------------------------------------------------|");
@@ -310,7 +312,7 @@ namespace Calculadora
                 return true;
             }
 
-            
+
             static int ConverterBinarioParaDecimal(string entradaBinaria)
             {
                 // Método para converter binário para decimal
@@ -336,7 +338,7 @@ namespace Calculadora
                 int potencia = 0;
 
                 Console.WriteLine("\n|Passos da conversão:                                              |");
-               
+
 
                 // Percorrer a string de trás para frente
                 for (int i = entradaBinaria.Length - 1; i >= 0; i--)
@@ -344,7 +346,7 @@ namespace Calculadora
                     int valorDoBit = entradaBinaria[i] - '0'; // Convertendo char '0' ou '1' para int 0 ou 1
                     int contribuicao = valorDoBit * (int)Math.Pow(2, potencia);
 
-                    string EscritaDaExplicacao =($"|Posição {i}: bit {valorDoBit} contribui com {valorDoBit} * 2^{potencia} = {contribuicao}");
+                    string EscritaDaExplicacao = ($"|Posição {i}: bit {valorDoBit} contribui com {valorDoBit} * 2^{potencia} = {contribuicao}");
                     int TamanhoEscritaExplicacao = EscritaDaExplicacao.Length;
 
                     //          escreve a Resposta,Calcula os Espaços e Fecha o Quadro
@@ -359,7 +361,6 @@ namespace Calculadora
 
             ReturnMainMenu();
         }
-
         static void DecimaltoOctal()
         {
             //          Procedimento para Realizar Decimal Para Octal
@@ -421,8 +422,6 @@ namespace Calculadora
             ReturnMainMenu();
 
         }
-
-
         static void OctaltoDecimal()
         {
             //          Procedimento para Realizar Octal para Decimal
@@ -461,19 +460,200 @@ namespace Calculadora
             // Escreve a resposta, calcula os espaços e fecha o quadro
             Console.Write(ValorResultado);
             calculaEspaço(TamanhoResultado);
-             Console.Write("|\n");
+            Console.Write("|\n");
             Console.WriteLine("|------------------------------------------------------------------|");
             ReturnMainMenu();
         }
+        static void DecimaltoHexa()
+        {
+            //          Procedimento para Realizar Decimal Para HexaDecimal
+
+
+            Console.WriteLine("|Escreva um Número Para Ser Convertido:                            |");
+            Console.WriteLine("|------------------------------------------------------------------|");
+
+            //          Coloca a Posição do Cursor dentro da caixa
+            Console.SetCursorPosition(39, 5);
+
+            //          Recebe o Numero que Será Convertido pelo usuário
+            int ValorUsuario = Convert.ToInt32(Console.ReadLine());
+
+            //          Essa Variável Recebe todos os Valores do Resto Obtido das Operações
+            string Resto = "";
+            
+            //          Faz as Operações:
+            while (ValorUsuario > 0)
+            {
+                int restodentro = ValorUsuario % 16;
+
+                // Verificação se é Letra Hexadecimal
+                if(restodentro > 9 && restodentro < 16)
+                {
+                    switch (restodentro)
+                    {
+                        case 10:
+                            Resto += "A";
+                        break;
+
+                        case 11:
+                            Resto += "B";
+                        break;
+
+                        case 12:
+                            Resto += "C";
+                        break;
+
+                        case 13:
+                            Resto += "D";
+                        break;
+
+                        case 14:
+                            Resto += "E";
+                        break;
+
+                        case 15:
+                            Resto += "F";
+                        break;
+                    }
+                }
+                else 
+                
+                { 
+                    Resto += restodentro;
+                }
+
+                  
+
+
+                //          A Solução que encontrei foi salvar a Resposta como uma Variável para que o Possa Contar
+                //          a quantidade  de Caracteres
+                string escrita = ($"|{ValorUsuario} / 16 = {(ValorUsuario / 16)} e o Resto da Divisão foi:{restodentro}");
+
+                //          Essa Variável Calcula o Tamanho da String para colocar os espaços e Fechar o Quadro
+                //          Junto com a Função calculaEspaço.
+                int tamanhoescrita = (escrita.Length);
+
+                //          escreve a Resposta,Calcula os Espaços e Fecha o Quadro
+                Console.Write(escrita);
+                calculaEspaço(tamanhoescrita);
+                Console.Write("|\n");
+                //          Divide o Valor do Usuário por 2 
+                ValorUsuario = ValorUsuario / 16;
+            }
+
+            //          Resposta Final:
+
+
+            Console.WriteLine("|------------------------------------------------------------------|");
+
+            // Inverte os Valores dos Restos
+            string ResultadoInvertido = new string(Resto.Reverse().ToArray());
+
+            // Variável para Calculo de Espaços
+            string ResultadoEscrita = ($"|O Resultado em HexaDecimal é :{ResultadoInvertido}");
+            int tamanhoresultado = (ResultadoEscrita.Length);
+
+            //          escreve a Resposta,Calcula os Espaços e Fecha o Quadro
+            Console.Write(ResultadoEscrita);
+            calculaEspaço(tamanhoresultado);
+            Console.Write("|\n");
+            Console.WriteLine("|------------------------------------------------------------------|");
+
+            ReturnMainMenu();
+        }
+
+            //Hexadecimal para Decimal (Lucas)
+
+        static void HexaTodecimal()
+        {
+            int NumUsuario = 0, posicao = 0, resultado = 0;
+            
+
+            Console.WriteLine("|Escreva um Número Para Ser Convertido:                            |");
+            Console.WriteLine("|------------------------------------------------------------------|");
+            NumUsuario = Convert.ToInt32(Console.ReadLine());
+
+
+            int[] hexaTodecimal = new int[4];
+            for(int i = 0; i > 0; i++)
+            {
+                resultado = (NumUsuario * i) ^ posicao;
+
+            }
+                Console.WriteLine(resultado);
+
+        }
+
+        static void BinarioToOctal()
+        {
+            //          Procedimento para Realizar Binario para Octal
+
+
+            Console.WriteLine("|Escreva um Número Binário Para Ser Convertido:                    |");
+            Console.WriteLine("|------------------------------------------------------------------|");
+
+            //          Coloca a Posição do Cursor dentro da caixa
+            Console.SetCursorPosition(47, 5);
+
+
+
+            // recebe o binário do Usuário
+            string entradaBinaria = Console.ReadLine();
+
+            // Método para verificar se a string é um número binário
+            static bool EhBinario(string entrada)
+            {
+                foreach (char caractere in entrada)
+                {
+                    if (caractere != '0' && caractere != '1')
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            // Validar se a entrada é um número binário
+            if (!EhBinario(entradaBinaria))
+
+            {
+                Console.WriteLine("\nEntrada inválida. Por favor, digite apenas 0 ou 1.");
+                ReturnMainMenu();
+                return;
+            }
 
 
 
 
+            int tamanhoEntrada = entradaBinaria.Length;
+            int contadordeCasas = tamanhoEntrada / 3;
 
+            int casainicial = 0;
+            int casaFinal = 3;
+
+
+
+            string[] EntradaSeparada = new string[contadordeCasas];
+
+            for(int i = 0; i < contadordeCasas; i++)
+            {
+               
+                EntradaSeparada[i] = entradaBinaria.Substring(casainicial, casaFinal);
+                casaFinal = casaFinal + 3;
+                casainicial = casainicial + 3;
+            }
+
+           /* for(int i = 0; i<= contadordeCasas; i++)
+            {
+                Console.WriteLine(EntradaSeparada[i]);
+            }
+            */
+
+           
+        }
 
     }
 }
-
 
 
 
